@@ -42,6 +42,8 @@ ifneq ($(CONFIG_BCMDHD_PCIE),)
 else
 	BUS_IFACE_SDIO=y
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 #####################
 # SDIO I/F
@@ -53,6 +55,8 @@ ifeq ($(BUS_IFACE_SDIO),y)
 ifeq ($(CONFIG_BCMDHD_OOB_HOST_WAKE),y)
 	DHDCFLAGS += -DOOB_INTR_ONLY
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 	# DPC priority
 	DHDCFLAGS += -DCUSTOM_DPC_PRIO_SETTING=98
 	# idle count
@@ -67,6 +71,8 @@ endif
 	# KSO Attempts count
 	DHDCFLAGS += -DCUSTOM_MAX_KSO_ATTEMPTS=64
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 #####################
 # PCIE I/F
@@ -77,6 +83,8 @@ ifeq ($(BUS_IFACE_PCIE),y)
 ifeq ($(CONFIG_BCMDHD_OOB_HOST_WAKE),y)
 	DHDCFLAGS += -DBCMPCIE_OOB_HOST_WAKE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 	# DPC priority
 	DHDCFLAGS += -DCUSTOM_DPC_PRIO_SETTING=-1
 	# Disable watchdog thread
@@ -102,6 +110,8 @@ endif
 ifeq ($(filter y,$(CONFIG_ARCH_SM8150) $(CONFIG_SOC_EXYNOS8890)),y)
 	DHDCFLAGS += -DWAKEUP_KSOFTIRQD_POST_NAPI_SCHEDULE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 	# DHDCFLAGS += -DDHD_RECOVER_TIMEOUT
 	# HEAP ASLR
 	DHDCFLAGS += -DBCM_ASLR_HEAP
@@ -109,11 +119,15 @@ ifeq ($(filter y,$(CONFIG_SOC_EXYNOS8895) $(CONFIG_ARCH_MSM8998) $(CONFIG_SOC_EX
 	# Default Tx LB Enable
 	DHDCFLAGS += -DDHD_LB_TXP_DEFAULT_ENAB
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 	# PCIe interrupt affinity control interface
 	DHDCFLAGS += -DSET_PCIE_IRQ_CPU_CORE
 	# ROT and Scan timeout debugging due to Kernel scheduling problem
 	DHDCFLAGS += -DDHD_KERNEL_SCHED_DEBUG
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 #################
 # Common feature
@@ -128,6 +142,8 @@ ifeq ($(CONFIG_64BIT),y)
 DHDCFLAGS := $(filter-out -DBCMDMA32,$(DHDCFLAGS))
 DHDCFLAGS += -DBCMDMA64OSL
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # Debug
 DHDCFLAGS += -DSIMPLE_MAC_PRINT
@@ -184,6 +200,8 @@ DHDCFLAGS += -DMAX_DTIM_ALLOWED_INTERVAL=925
 ifeq ($(CONFIG_BRCM_CCX),y)
   DHDCFLAGS += -DBCMCCX
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # SoftAP
 DHDCFLAGS += -DWL_SUPPORT_AUTO_CHANNEL -DSUPPORT_HIDDEN_AP
@@ -244,6 +262,8 @@ ifeq ($(BUS_IFACE_PCIE),y)
 ifeq ($(CONFIG_BCMDHD_PREALLOC_MEMDUMP),y)
   DHDCFLAGS += -DDHD_USE_STATIC_MEMDUMP
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif # BUS_IFACE_PCIE
 endif # CONFIG_BROADCOM_WIFI_RESERVED_MEM
 
@@ -300,11 +320,15 @@ DHDCFLAGS += -DSET_SSID_FAIL_CUSTOM_RC=100
 ifeq ($(CONFIG_WLAN_5GDISABLE),y)
 DHDCFLAGS += -DDHD_2G_ONLY_SUPPORT
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # Disable VHT(5G HT80) mode
 ifeq ($(CONFIG_WLAN_VHTDISABLE),y)
 DHDCFLAGS += -DDHD_DISABLE_VHTMODE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # Use legacy random mac
 # Disable the legacy randmac and enable scanmac
@@ -321,7 +345,11 @@ ifneq ($(PLATFORM_VERSION),)
 MAJOR_VERSION := $(shell echo $(PLATFORM_VERSION) | cut -d "." -f 1)
 DHDCFLAGS += -DANDROID_PLATFORM_VERSION=$(MAJOR_VERSION)
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # TCP SYNC flood attack block
 DHDCFLAGS += -DDHDTCPSYNC_FLOOD_BLK -DTCP_SYNC_FLOOD_LIMIT=50
@@ -376,6 +404,8 @@ DHD_ANDROID_OFILES :=$(filter-out wl_cfgvendor.o,$(DHD_ANDROID_OFILES))
 DHDCFLAGS :=$(filter-out -DLINKSTAT_SUPPORT,$(DHDCFLAGS))
 DHDCFLAGS :=$(filter-out -DWL_VENDOR_EXT_SUPPORT,$(DHDCFLAGS))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ##########################
 # driver type
@@ -424,15 +454,21 @@ ifeq ($(BUS_IFACE_PCIE),y)
   DHDCFLAGS += -DCUSTOM_TCPACK_DELAY_TIME=10
   DHDCFLAGS += -DDHDTCPACK_SUPPRESS
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(CONFIG_ARCH_QCOM),y)
   DHDCFLAGS += -DCONFIG_ARCH_MSM
   DHDCFLAGS := $(filter-out -DDHDTCPACK_SUPPRESS,$(DHDCFLAGS))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(CONFIG_ARCH_MSM),y)
   DHDCFLAGS := $(filter-out -DDHDTCPACK_SUPPRESS,$(DHDCFLAGS))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(CONFIG_SOC_EXYNOS9810),y)
   DHDCFLAGS := $(filter-out -DDHDTCPACK_SUPPRESS,$(DHDCFLAGS))
@@ -440,6 +476,8 @@ ifeq ($(CONFIG_SOC_EXYNOS9810),y)
   DHDCFLAGS += -DDHD_MAP_LOGGING
   DHDCFLAGS += -DDHD_MAP_PKTID_LOGGING
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # New Features
   DHDCFLAGS += -DWL11U -DMFP
@@ -475,6 +513,8 @@ endif
 ifneq ($(CUSTOM_LOG_DUMP_BUFSIZE_MB),)
   DHDCFLAGS += -DCUSTOM_LOG_DUMP_BUFSIZE_MB=$(CUSTOM_LOG_DUMP_BUFSIZE_MB)
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
   DHDCFLAGS += -DWL_SUPP_EVENT
   DHDCFLAGS += -DFILTER_IE
@@ -506,6 +546,8 @@ endif
 ifeq ($(filter y,$(CONFIG_ARCH_MSM8998) $(CONFIG_ARCH_SDM845)),y)
   DHDCFLAGS += -DUSE_SMMU_ARCH_MSM
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(filter y,$(CONFIG_ARCH_MSM8996) $(CONFIG_ARCH_MSM8998) $(CONFIG_SOC_EXYNOS8890) $(CONFIG_SOC_EXYNOS8895) $(CONFIG_ARCH_TEGRA) $(CONFIG_SOC_EXYNOS9810) $(CONFIG_ARCH_SDM845)),y)
 # IRQSET in DHD
@@ -517,6 +559,8 @@ ifeq ($(filter y,$(CONFIG_ARCH_MSM8996) $(CONFIG_ARCH_MSM8998) $(CONFIG_SOC_EXYN
 # Enable LQCM
   DHDCFLAGS += -DSUPPORT_LQCM
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(filter y,$(CONFIG_WLAN_GREAT) $(CONFIG_SEC_GREATQLTE_PROJECT) $(CONFIG_SOC_EXYNOS9810) $(CONFIG_ARCH_SDM845)),y)
 # Debugaility
@@ -538,6 +582,8 @@ ifeq ($(filter y,$(CONFIG_WLAN_GREAT) $(CONFIG_SEC_GREATQLTE_PROJECT) $(CONFIG_S
 # Enable DHD_DUMP_MNGR
   DHDCFLAGS += -DDHD_DUMP_MNGR
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # Use Legacy dump path
 ifneq ($(USE_LEGACY_DUMP_PATH),)
@@ -545,6 +591,8 @@ ifneq ($(USE_LEGACY_DUMP_PATH),)
 else
   DHDCFLAGS += -DDHD_COMMON_DUMP_PATH="\"/data/log/wifi/\""
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # For Samsung factory mode only
 ifeq ($(CONFIG_SEC_FACTORY),y)
@@ -561,7 +609,11 @@ ifeq ($(CONFIG_BCM4375),y)
   DHDCFLAGS += -DUSE_LATE_INITCALL_SYNC
   DRIVER_TYPE = y
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # Chipsets supported both SDIO and PCIE
 ifneq ($(CONFIG_BCM4361),)
@@ -580,6 +632,8 @@ ifneq ($(CONFIG_BCM4361),)
 ifeq ($(filter y,$(CONFIG_ARCH_SDM845) $(CONFIG_SOC_EXYNOS9810)),y)
  DHDCFLAGS += -DDISABLE_WL_FRAMEBURST_SOFTAP
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
  DHDCFLAGS += -DDISABLE_PM_BCNRX
 # Debugability
  DHDCFLAGS += -DDEBUGABILITY_ECNTRS_LOGGING
@@ -602,16 +656,24 @@ ifeq ($(BUS_IFACE_PCIE),y)
 ifeq ($(filter y,$(CONFIG_SOC_EXYNOS8895) $(CONFIG_ARCH_MSM8998)),y)
   DHDCFLAGS += -DDHD_RECOVER_TIMEOUT
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(CONFIG_ARCH_QCOM),y)
   DHDCFLAGS += -DCONFIG_ARCH_MSM
   DHDCFLAGS := $(filter-out -DDHDTCPACK_SUPPRESS,$(DHDCFLAGS))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(CONFIG_ARCH_MSM),y)
   DHDCFLAGS := $(filter-out -DDHDTCPACK_SUPPRESS,$(DHDCFLAGS))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(CONFIG_SOC_EXYNOS9810),y)
   DHDCFLAGS := $(filter-out -DDHDTCPACK_SUPPRESS,$(DHDCFLAGS))
@@ -619,11 +681,15 @@ ifeq ($(CONFIG_SOC_EXYNOS9810),y)
   DHDCFLAGS += -DDHD_MAP_LOGGING
   DHDCFLAGS += -DDHD_MAP_PKTID_LOGGING
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # New Features
 ifeq ($(filter y,$(CONFIG_ARCH_MSM8998) $(CONFIG_SOC_EXYNOS8895)),y)
   DHDCFLAGS += -DDHD_RANDOM_MAC_SCAN
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
   DHDCFLAGS += -DWL11U -DMFP
   DHDCFLAGS += -DBCMCCX
   DHDCFLAGS += -DWES_SUPPORT
@@ -654,6 +720,8 @@ endif
 ifneq ($(CUSTOM_LOG_DUMP_BUFSIZE_MB),)
   DHDCFLAGS += -DCUSTOM_LOG_DUMP_BUFSIZE_MB=$(CUSTOM_LOG_DUMP_BUFSIZE_MB)
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
   DHDCFLAGS += -DWL_SUPP_EVENT
   DHDCFLAGS += -DFILTER_IE
@@ -674,6 +742,8 @@ endif
 ifeq ($(CONFIG_WLAN_TSQ_MULTIPLIER),y)
   DHDCFLAGS += -DTSQ_MULTIPLIER=10
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 # HANG simulation
   DHDCFLAGS += -DDHD_HANG_SEND_UP_TEST
 # Support Monitor Mode
@@ -687,6 +757,8 @@ endif
 ifeq ($(filter y,$(CONFIG_ARCH_MSM8998) $(CONFIG_ARCH_SDM845)),y)
   DHDCFLAGS += -DUSE_SMMU_ARCH_MSM
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(filter y,$(CONFIG_ARCH_MSM8996) $(CONFIG_ARCH_MSM8998) $(CONFIG_SOC_EXYNOS8890) $(CONFIG_SOC_EXYNOS8895) $(CONFIG_ARCH_TEGRA) $(CONFIG_SOC_EXYNOS9810) $(CONFIG_ARCH_SDM845)),y)
 # IRQSET in DHD
@@ -698,6 +770,8 @@ ifeq ($(filter y,$(CONFIG_ARCH_MSM8996) $(CONFIG_ARCH_MSM8998) $(CONFIG_SOC_EXYN
 # Enable LQCM
   DHDCFLAGS += -DSUPPORT_LQCM
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(filter y,$(CONFIG_WLAN_GREAT) $(CONFIG_SEC_GREATQLTE_PROJECT) $(CONFIG_SOC_EXYNOS9810) $(CONFIG_ARCH_SDM845)),y)
 # Debugaility
@@ -721,6 +795,8 @@ ifeq ($(filter y,$(CONFIG_WLAN_GREAT) $(CONFIG_SEC_GREATQLTE_PROJECT) $(CONFIG_S
 # Iface force dev close
   DHDCFLAGS += -DIFACE_HANG_FORCE_DEV_CLOSE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # Use Legacy dump path
 ifneq ($(USE_LEGACY_DUMP_PATH),)
@@ -728,6 +804,8 @@ ifneq ($(USE_LEGACY_DUMP_PATH),)
 else
   DHDCFLAGS += -DDHD_COMMON_DUMP_PATH="\"/data/log/wifi/\""
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(CONFIG_ARCH_SDM845),y)
 # Disable Dongle Isolation
@@ -735,6 +813,8 @@ ifeq ($(CONFIG_ARCH_SDM845),y)
 # Enable BP Reset while Wi-Fi power off
   DHDCFLAGS += -DDHD_USE_BP_RESET
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # For Samsung factory mode only
 ifeq ($(CONFIG_SEC_FACTORY),y)
@@ -751,7 +831,11 @@ ifeq ($(CONFIG_BCM4361),y)
   DHDCFLAGS += -DUSE_LATE_INITCALL_SYNC
   DRIVER_TYPE = y
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(CONFIG_BCM4359),)
   DHDCFLAGS += -DBCM4359_CHIP -DSUPPORT_MULTIPLE_REVISION
@@ -775,6 +859,8 @@ ifneq ($(USE_LEGACY_DUMP_PATH),)
 else
   DHDCFLAGS += -DDHD_COMMON_DUMP_PATH="\"/data/log/wifi/\""
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # tput enhancement for PCIE
 ifeq ($(BUS_IFACE_PCIE),y)
@@ -790,16 +876,24 @@ ifeq ($(CONFIG_ARCH_MSM8998),y)
 # Use SMMU for IOMEM
   DHDCFLAGS += -DUSE_SMMU_ARCH_MSM
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(CONFIG_ARCH_QCOM),y)
   DHDCFLAGS += -DCONFIG_ARCH_MSM
   DHDCFLAGS := $(filter-out -DDHDTCPACK_SUPPRESS,$(DHDCFLAGS))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(CONFIG_ARCH_MSM),y)
   DHDCFLAGS := $(filter-out -DDHDTCPACK_SUPPRESS,$(DHDCFLAGS))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # New Features
   DHDCFLAGS += -DDHD_RANDOM_MAC_SCAN
@@ -852,23 +946,33 @@ ifeq ($(CONFIG_SOC_EXYNOS8890),y)
  # Disable IRQ affinity setting
   DHDCFLAGS := $(filter-out -DDHD_LB_IRQSET,$(DHDCFLAGS))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(filter y,$(CONFIG_ARCH_MSM8998) $(CONFIG_ARCH_SDM845)),y)
 # Use SMMU for IOMEM
  DHDCFLAGS += -DUSE_SMMU_ARCH_MSM
  DHDCFLAGS += -DSET_DMA_MASK_64BIT
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(filter y,$(CONFIG_WLAN_HERO) $(CONFIG_SEC_HEROQLTE_PROJECT)),y)
   DHDCFLAGS += -DDHD_SUPPORT_US_949
   DHDCFLAGS += -DDHD_SUPPORT_QA_6
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(filter y,$(CONFIG_WLAN_HERO2) $(CONFIG_SEC_HERO2QLTE_PROJECT)),y)
   DHDCFLAGS += -DDHD_SUPPORT_US_945
   DHDCFLAGS += -DDHD_SUPPORT_QA_6
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 # HANG simulation
   DHDCFLAGS += -DDHD_HANG_SEND_UP_TEST
 
@@ -876,6 +980,8 @@ ifeq ($(filter y,$(CONFIG_WLAN_GRACE) $(CONFIG_SEC_KELLYLTE_PROJECT)),y)
   DHDCFLAGS += -DWBTEXT
   DHDCFLAGS += -DDHD_USE_CLMINFO_PARSER
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # LOGTRACE_EVENT
   DHDCFLAGS += -DSHOW_LOGTRACE
@@ -899,7 +1005,11 @@ ifeq ($(CONFIG_BCM4359),y)
   DHDCFLAGS += -DUSE_LATE_INITCALL_SYNC
   DRIVER_TYPE = y
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(CONFIG_BCM4358),)
   DHDCFLAGS += -DBCM4358_CHIP -DSUPPORT_MULTIPLE_REVISION
@@ -930,6 +1040,8 @@ ifeq ($(BUS_IFACE_SDIO),y)
   DHDCFLAGS += -DDHDTCPACK_SUPPRESS
   DHDCFLAGS += -DPROP_TXSTATUS_VSDB
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 # tput enhancement for PCIE
 ifeq ($(BUS_IFACE_PCIE),y)
   DHDCFLAGS += -DCUSTOM_AMPDU_BA_WSIZE=64 -DCUSTOM_IBSS_AMPDU_BA_WSIZE=16
@@ -940,16 +1052,22 @@ ifeq ($(BUS_IFACE_PCIE),y)
   DHDCFLAGS += -DCUSTOM_TCPACK_DELAY_TIME=10
   DHDCFLAGS += -DDHDTCPACK_SUPPRESS
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # Disabled DHDTCPACK_SUPPRESS for T Project / Enabled for Zero Project
 ifeq ($(filter y,$(CONFIG_MACH_UNIVERSAL5433) $(CONFIG_ARCH_APQ8084)),y)
   DHDCFLAGS :=$(filter-out -DDHDTCPACK_SUPPRESS,$(DHDCFLAGS))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(CONFIG_ARCH_MSM),y)
   DHDCFLAGS += -DSET_RPS_CPUS
   DHDCFLAGS := $(filter-out -DDHDTCPACK_SUPPRESS,$(DHDCFLAGS))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # New Features
   DHDCFLAGS += -DDHD_RANDOM_MAC_SCAN
@@ -970,7 +1088,11 @@ ifeq ($(CONFIG_BCM4358),y)
   DHDCFLAGS += -DUSE_LATE_INITCALL_SYNC
   DRIVER_TYPE = y
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(CONFIG_BCM4354),)
   DHDCFLAGS += -DBCM4354_CHIP -DSUPPORT_MULTIPLE_REVISION
@@ -1002,6 +1124,8 @@ ifeq ($(BUS_IFACE_SDIO),y)
   DHDCFLAGS += -DDHDTCPACK_SUPPRESS
   DHDCFLAGS += -DPROP_TXSTATUS_VSDB
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # tput enhancement for PCIE
 ifeq ($(BUS_IFACE_PCIE),y)
@@ -1009,6 +1133,8 @@ ifeq ($(BUS_IFACE_PCIE),y)
   DHDCFLAGS += -DCUSTOM_AMPDU_MPDU=32
   DHDCFLAGS += -DCUSTOM_AMPDU_RELEASE=16
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # New Features
   DHDCFLAGS += -DDHD_RANDOM_MAC_SCAN
@@ -1029,7 +1155,11 @@ ifeq ($(CONFIG_BCM4354),y)
   DHDCFLAGS += -DUSE_LATE_INITCALL_SYNC
   DRIVER_TYPE = y
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # Chipsets supported SDIO only
 ifeq ($(BUS_IFACE_SDIO),y)
@@ -1055,6 +1185,8 @@ ifeq ($(CONFIG_ARCH_MSM),y)
   DHDCFLAGS += -DCUSTOM_DEF_TXGLOM_SIZE=32 -DDHD_TXBOUND=32
   DHDCFLAGS += -DENABLE_ADAPTIVE_SCHED -DCUSTOM_CPUFREQ_THRESH=1000000
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
   DHDCFLAGS += -DCUSTOM_MAX_TXGLOM_SIZE=32
 
   # New Features
@@ -1077,18 +1209,28 @@ ifeq ($(CONFIG_BCM4339),y)
   DHDCFLAGS += -DUSE_LATE_INITCALL_SYNC
   DRIVER_TYPE = y
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(CONFIG_BCM43456),)
   DHDCFLAGS += -DBCM43456_CHIP
   DHDCFLAGS += -DWLADPS_PRIVATE_CMD
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_BCM43455),)
   DHDCFLAGS += -DBCM43455_CHIP
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_BCM43454),)
   DHDCFLAGS += -DBCM43454_CHIP
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # BCM43454/43455/43456 common difine.
 ifneq ($(filter y,$(CONFIG_BCM43454) $(CONFIG_BCM43455) $(CONFIG_BCM43456)),$(filter m,$(CONFIG_BCM43454) $(CONFIG_BCM43455) $(CONFIG_BCM43456)))
@@ -1130,6 +1272,8 @@ ifeq ($(filter y,$(CONFIG_BCM43454) $(CONFIG_BCM43455) $(CONFIG_BCM43456)),y)
   DHDCFLAGS += -DUSE_LATE_INITCALL_SYNC
   DRIVER_TYPE = y
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
   DHDCFLAGS += -DDHD_LOG_DUMP
 
   # FCC power limit control on ch12/13.
@@ -1145,6 +1289,8 @@ ifeq ($(filter y,$(CONFIG_BCM43454) $(CONFIG_BCM43455)), y)
   #Support Qatar 5G band 36-64, 100-144, 149-165 channels
   DHDCFLAGS += -DDHD_SUPPORT_QA_6
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(PLATFORM_VERSION),)
 # Android O OS use below features
@@ -1152,7 +1298,11 @@ ifeq ($(shell expr $(PLATFORM_VERSION) \>= 8.0),1)
 # Use single nvram file
   DHDCFLAGS += -DDHD_USE_SINGLE_NVRAM_FILE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(filter y,$(CONFIG_BCM43455) $(CONFIG_BCM43456)),$(filter m,$(CONFIG_BCM43455) $(CONFIG_BCM43456)))
 # Enable Firmware Coredump
@@ -1181,8 +1331,14 @@ ifneq ($(CONFIG_BCM43456),)
 # Iface force dev close
   DHDCFLAGS += -DIFACE_HANG_FORCE_DEV_CLOSE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(CONFIG_BCM43454),)
   DHDCFLAGS += -DBCM43454_CHIP -DHW_OOB
@@ -1224,8 +1380,12 @@ ifeq ($(CONFIG_BCM43454),y)
   DHDCFLAGS += -DUSE_LATE_INITCALL_SYNC
   DRIVER_TYPE = y
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
   DHDCFLAGS += -DCUSTOM_PSPRETEND_THR=30
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(CONFIG_BCM4335),)
   DHDCFLAGS += -DBCM4335_CHIP -DHW_OOB -DSUPPORT_MULTIPLE_REVISION
@@ -1251,10 +1411,14 @@ ifneq ($(CONFIG_BCM4335),)
 ifeq ($(CONFIG_MACH_JF),y)
   DHDCFLAGS += -DCUSTOM_DEF_TXGLOM_SIZE=32 -DDHD_TXBOUND=32
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifeq ($(CONFIG_ARCH_MSM),y)
   DHDCFLAGS += -DCUSTOM_DEF_TXGLOM_SIZE=32 -DDHD_TXBOUND=32
   DHDCFLAGS += -DENABLE_ADAPTIVE_SCHED -DCUSTOM_CPUFREQ_THRESH=1000000
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
   DHDCFLAGS += -DCUSTOM_MAX_TXGLOM_SIZE=32
 
   # New Features
@@ -1275,12 +1439,18 @@ endif
 ifeq ($(CONFIG_BCM4335BT),y)
   DHDCFLAGS += -DENABLE_4335BT_WAR
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifeq ($(CONFIG_BCM4335),y)
   DHDCFLAGS += -DENABLE_INSMOD_NO_FW_LOAD
   DHDCFLAGS += -DUSE_LATE_INITCALL_SYNC
   DRIVER_TYPE = y
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(CONFIG_BCM4343),)
   DHDCFLAGS += -DBCM43430_CHIP -DSUPPORT_MULTIPLE_REVISION -DHW_OOB
@@ -1302,9 +1472,13 @@ ifeq ($(CONFIG_BCM43436),y)
 ifeq ($(CONFIG_BCMDHD_PREALLOC_MEMDUMP),y)
   DHDCFLAGS += -DDHD_USE_STATIC_MEMDUMP
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 else
   DHDCFLAGS += -DCUSTOM_GLOM_SETTING=0
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
   # New Features
   DHDCFLAGS += -DDHD_RANDOM_MAC_SCAN
   DHDCFLAGS += -DWL11U
@@ -1318,6 +1492,8 @@ ifeq ($(CONFIG_BCM4343),y)
   DHDCFLAGS += -DUSE_LATE_INITCALL_SYNC
   DRIVER_TYPE = y
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 # FCC power limit control on ch12/13.
   DHDCFLAGS += -DFCC_PWR_LIMIT_2G
 # Enable Roam time thresh
@@ -1337,8 +1513,14 @@ ifeq ($(shell expr $(PLATFORM_VERSION) \>= 8.0),1)
 # Use single nvram file
   DHDCFLAGS += -DDHD_USE_SINGLE_NVRAM_FILE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(CONFIG_BCM43012),)
   DHDCFLAGS += -DBCM43012_CHIP_ -DHW_OOB
@@ -1362,11 +1544,15 @@ ifneq ($(CONFIG_BCM43012),)
 ifneq  ($(CONFIG_BT_OVER_SDIO),)
   DHDCFLAGS += -DBT_OVER_SDIO
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifeq ($(CONFIG_BCM43012),y)
   DHDCFLAGS += -DENABLE_INSMOD_NO_FW_LOAD
   DHDCFLAGS += -DUSE_LATE_INITCALL_SYNC
   DRIVER_TYPE = y
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifeq ($(CONFIG_SOLIS),y)
   DHDCFLAGS += -USUPPORT_P2P_GO_PS
   DHDCFLAGS += -UP2P_LISTEN_OFFLOADING
@@ -1376,10 +1562,14 @@ ifeq ($(CONFIG_SOLIS),y)
   DHDCFLAGS += -UDHD_TRACE_WAKE_LOCK
   DHDCFLAGS += -DDHD_USE_CLMINFO_PARSER
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
   # Remove common feature for 43012
   DHDCFLAGS :=$(filter-out -DROAM_AP_ENV_DETECTION,$(DHDCFLAGS))
   DHDCFLAGS :=$(filter-out -DDISABLE_11H_SOFTAP,$(DHDCFLAGS))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif # chipset supported SDIO only
 
 #############################
@@ -1400,6 +1590,8 @@ ifeq ($(CONFIG_SPI_SC8810),y)
   DHDCFLAGS :=$(filter-out -DMULTIPLE_SUPPLICANT,$(DHDCFLAGS))
   DHDCFLAGS :=$(filter-out -DWL_CFG80211_STA_EVENT,$(DHDCFLAGS))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # For SLP feature
 ifeq ($(CONFIG_SLP),y)
@@ -1408,37 +1600,57 @@ ifeq ($(CONFIG_SLP),y)
   DHDCFLAGS += -DSUPPORT_MULTIPLE_CHIP
   DHDCFLAGS += -USUPPORT_MULTIPLE_REVISION -UCONFIG_HAS_WAKELOCK
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # GGSM_WIFI_5GHz_CHANNELS feature is define for only GGSM model
 ifeq ($(GGSM_WIFI_5GHz_CHANNELS),true)
   DHDCFLAGS += -DCUSTOMER_SET_COUNTRY
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # Compiler option for specific platform
 ifeq ($(CONFIG_SOC_EXYNOS8890),y)
   DHDCFLAGS += -Wno-date-time
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifeq ($(CONFIG_SOC_EXYNOS7570),y)
   DHDCFLAGS += -Wno-date-time
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifeq ($(CONFIG_SOC_EXYNOS8890),y)
   DHDCFLAGS += -Wno-date-time
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifeq ($(CONFIG_SOC_EXYNOS8895),y)
   DHDCFLAGS += -Wno-date-time
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifeq ($(CONFIG_ARCH_MSM8996),y)
   DHDCFLAGS += -Wno-date-time
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifeq ($(CONFIG_ARCH_MSM8998),y)
   DHDCFLAGS += -Wno-date-time
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifeq ($(CONFIG_SOC_EXYNOS9810),y)
   DHDCFLAGS += -Wno-date-time
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifeq ($(CONFIG_ARCH_SDM845),y)
   DHDCFLAGS += -Wno-date-time
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # DTS Support
 ifeq ($(CONFIG_OF),y)
@@ -1446,62 +1658,94 @@ ifneq ($(CONFIG_MACH_UNIVERSAL5433),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 DHDCFLAGS += -DBCMPCIE_OOB_HOST_WAKE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_MACH_UNIVERSAL7420),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 DHDCFLAGS += -DBCMPCIE_OOB_HOST_WAKE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_SOC_EXYNOS8890),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 DHDCFLAGS += -DBCMPCIE_OOB_HOST_WAKE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_SOC_EXYNOS8895),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 DHDCFLAGS += -DBCMPCIE_OOB_HOST_WAKE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_MACH_EXSOM7420),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 DHDCFLAGS += -DBCMPCIE_OOB_HOST_WAKE
 DHDCFLAGS += -DEXYNOS_PCIE_MODULE_PATCH
 obj-$(CONFIG_MACH_EXSOM7420) += dhd_custom_exynos.o dhd_custom_memprealloc.o
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_SOC_EXYNOS9810),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 DHDCFLAGS += -DBCMPCIE_OOB_HOST_WAKE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_MACH_UNIVERSAL5430),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_MACH_UNIVERSAL5422),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_ARCH_MSM8994),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_ARCH_MSM8996),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 DHDCFLAGS += -DBCMPCIE_OOB_HOST_WAKE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_ARCH_MSM8998),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 DHDCFLAGS += -DBCMPCIE_OOB_HOST_WAKE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifeq ($(CONFIG_ARCH_SDM845),y)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 DHDCFLAGS += -DBCMPCIE_OOB_HOST_WAKE
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_MACH_UNIVERSAL3475),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_ARCH_SWA100),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_SOC_EXYNOS7870),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 DHDCFLAGS += -Wno-date-time
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 ifneq ($(CONFIG_SOC_EXYNOS7570),)
 DHDCFLAGS += -DDHD_OF_SUPPORT
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 endif #CONFIG_OF
 
 ifneq ($(CONFIG_ARCH_TEGRA),)
@@ -1515,6 +1759,8 @@ DHDCFLAGS := $(filter-out -DWL_BCNRECV,$(DHDCFLAGS))
 DHD_ANDROID_OFILES := $(filter-out wl_cfgvendor.o,$(DHD_ANDROID_OFILES))
 DHD_ANDROID_OFILES := $(filter-out dhd_rtt.o,$(DHD_ANDROID_OFILES))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ##############################################################
 # dhd_sec_feature.h
@@ -1547,10 +1793,14 @@ DHDOFILES += bcmsdh.o bcmsdh_linux.o bcmsdh_sdmmc.o bcmsdh_sdmmc_linux.o
 DHDOFILES += dhd_cdc.o dhd_sdio.o
 DHDOFILES += dhd_wlfc.o
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifeq ($(BUS_IFACE_PCIE),y)
 DHDOFILES += dhd_pcie.o dhd_pcie_linux.o pcie_core.o dhd_flowring.o dhd_msgbuf.o
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 DHDOFILES += $(DHD_ANDROID_OFILES)
 
@@ -1560,6 +1810,8 @@ DHDOFILES += bcmsdspi_linux.o bcmspibrcm.o
 DHDOFILES :=$(filter-out bcmsdh_sdmmc.o,$(DHDOFILES))
 DHDOFILES :=$(filter-out bcmsdh_sdmmc_linux.o,$(DHDOFILES))
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 # NAN feature
 #Until SDK update, uncoditionally enabling NAN for now
@@ -1570,18 +1822,26 @@ DHDOFILES += wl_cfgnan.o bcmxtlv.o bcmbloom.o
 ifneq ($(filter -DDHD_PKT_LOGGING,$(DHDCFLAGS)),)
 DHDOFILES += dhd_pktlog.o
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(filter -DDHD_EVENT_LOG_FILTER, $(DHDCFLAGS)),)
 DHDOFILES += dhd_event_log_filter.o
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(filter -DBIGDATA_SOFTAP,$(DHDCFLAGS)),)
 DHDOFILES += wl_bigdata.o
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 ifneq ($(filter -DWL_BAM,$(DHDCFLAGS)),)
 DHDOFILES += wl_bam.o
 endif
+# Patched: hardcode Android 9 (overrides empty MAJOR_VERSION from ANDROID_VERSION=9)
+DHDCFLAGS += -DANDROID_PLATFORM_VERSION=9
 
 dhd-y := $(DHDOFILES)
 obj-$(DRIVER_TYPE)   += dhd.o
