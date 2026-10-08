@@ -1,0 +1,60 @@
+HOW TO BUILD - S8 Docker Kernel
+================================
+
+Tested on: Ubuntu 22.04/24.04 64-bit (GCP e2-medium, 4 vCPU)
+
+PREREQUISITES
+-------------
+
+1. Install build tools:
+
+   sudo apt-get update
+   sudo apt-get install -y git make bc bison flex libssl-dev \
+       libncurses5-dev gcc-aarch64-linux-gnu zip python3
+
+2. Clone this repo:
+
+   git clone <repo-url>
+   cd <repo-dir>
+
+BUILD SCRIPTS
+-------------
+
+Scripts are provided. Check the SETUP section at the top
+of each script and adjust paths to your machine if needed.
+
+  clean.sh  - wipes the source tree (make mrproper) and deletes
+              the output directory. Run this for a fresh build.
+
+  edit.sh   - opens menuconfig to enable/disable kernel options,
+              saves your changes back to the defconfig.
+
+  build.sh  - full build: compiles the kernel, repacks boot.img,
+              creates a TWRP-flashable zip.
+              Output: s8-docker-kernel.zip
+
+  pack.py   - (used by build.sh) repacks boot.img with the new
+              kernel. Updates the header to fit any kernel size.
+
+STEPS TO BUILD
+--------------
+
+1. # cleanup (optional, for fresh build)
+   ./clean.sh
+
+2. # edit kernel config (optional)
+   ./edit.sh
+
+3. # build (this takes a while, go grab a coffee)
+   ./build.sh
+
+   If it finishes without errors, you'll get s8-docker-kernel.zip
+   in the repo folder. Flash it in TWRP.
+
+NOTE
+----
+
+- Always build with a clean ramdisk (no Magisk). Flash Magisk
+  separately after installing the kernel.
+- base/base-boot.img is the XDA kernel's boot.img, used as the ramdisk
+  source for repacking.
